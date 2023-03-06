@@ -60,4 +60,8 @@ signal.signal(signal.SIGINT, signal.default_int_handler)
 load_dotenv()   # imports .env variables
 accountSid = os.environ['TWILIO_ACCOUNT_SID']
 authToken = os.environ['TWILIO_AUTH_TOKEN']
+userPhoneNumber = os.environ['TWILIO_USR_PHONE_NUMBER']
+fromPhoneNumber = os.environ['TWILIO_FROM_PHONE_NUMBER']
 client = Client(accountSid, authToken)
+
+## Sends a SMS message 

@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Facial Recognition Lock/Alert System for Embedded Systems Development Lab, Johns Hopkins University. 
+#### Facial Recognition Lock/Alert System for Embedded Systems Development Lab, Johns Hopkins University. 
 
 This repository contains the necessary files and information to setup and deploy a scalable number of OpenCV Oak-1 AI facial recognition cameras that control door access locks, and log and alert the sysadmin to potential unauthorized entry attempts.
 
@@ -30,8 +30,12 @@ This repository is intended to be installed within a virtual environment. This i
 ## File Structure <a name="file-structure"></a>
 
 - `.ref/` contains images used in this README file.
-- `frserver.py` is the server python code.
+- `docs/` contains the Makefile and relevant files.
+- `examples\` contains examples of additional clients.
+- `src\` contains all source files for this project - server and client scripts.
+    - `src\jh_facial_recog_lock\frserver.py` is the server python code.
 - `requirements.txt` contains environment dependencies to be installed upon venv creation.
+- `tests\` contains test scripts to verify certain functionalities.
 
 ## Dependencies <a name="dependencies"></a>
 
@@ -39,7 +43,17 @@ This repository requires the following dependencies to function:
 
 ### Twilio <a name="twilio"></a>
 
-Set up a Twilio account by following [these instructions](https://www.twilio.com/docs/sms/quickstart/python). If using a free trial, be aware that it can only send texts to verified phone numbers (which will initially be the phone number you use to set up the account). The values for your `.env` variables (`TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN`) will be provided and need to be added to `.env` manually.
+Set up a Twilio account by following [these instructions](https://www.twilio.com/docs/sms/quickstart/python). If using a free trial, be aware that it can only send texts to verified phone numbers (which will initially be the phone number you use to set up the account). The values for your `.env` variables (`TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN`) will be provided and need to be added to `.env` manually. You will also need to fill in `TWILIO_USR_PHONE_NUMBER` with the appropriate user phone number (in format `+18005555555`) and then do the same for `TWILIO_FROM_PHONE_NUMBER` (this will be the Twilio-created phone number you will receive alerts from).
+
+Next you will need to install Twilio CLI (Server Only):
+
+> `wget -qO- https://twilio-cli-prod.s3.amazonaws.com/twilio_pub.asc | sudo apt-key add -`
+> `sudo touch /etc/apt/sources.list.d/twilio.list`
+> `echo 'deb https://twilio-cli-prod.s3.amazonaws.com/apt/ /' | sudo tee /etc/apt/sources.list.d/twilio.list`
+> `sudo apt update`
+> `sudo apt install -y twilio`
+
+With this complete, run `twilio login` and input your credentials from your Twilio account.
 
 ### Python Libraries <a name="python-libraries"></a>
 
@@ -48,6 +62,8 @@ The following libraries will be stored in `requirements.txt` using `pip3 freeze 
 - `dotenv`, install using `pip3 install python-dotenv`.
 - `twilio`, install using `pip3 install twilio`.
 - `zmq`, install using `pip3 install pyzmq`.
+
+Note: for Windows testing, use `python3 -m pip install <package>`.
 
 ## Server Setup <a name="server-setup"></a>
 
