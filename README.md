@@ -9,11 +9,23 @@ This repository contains the necessary files and information to setup and deploy
 ## Table of Contents
 
 - [File Structure](#file-structure)
+- [Installation](#installation)
 - [Dependencies](#depedencies)
     - [Twilio](#twilio)
     - [Python Libraries](#python-libraries)
 - [Server Setup](#server-setup)
 - [License](#license)
+
+## Installation <a name="installation"></a>
+
+This repository is intended to be installed within a virtual environment. This is intended to be performed both on client and server hardware.
+
+- `git clone https://github.com/rothej/jh_facial_recog_lock.git` to clone the repository.
+- `cd jh_facial_recog_lock`
+- `pip3 install virtualenv` (if needed).
+- `virtualenv venv` to create a virtual environment.
+- `source venv/bin/activate` to enter this newly created environment.
+- `pip3 install -r requirements.txt` to install python dependencies.
 
 ## File Structure <a name="file-structure"></a>
 
@@ -29,9 +41,10 @@ Set up a Twilio account by following [these instructions](https://www.twilio.com
 
 ### Python Libraries <a name="python-libraries"></a>
 
-The following libraries will be stored in `requirements.txt`, but are listed here for user reference.
+The following libraries will be stored in `requirements.txt` using `pip3 freeze`, and installed during the Installation step. They are listed here for user reference.
 
-- `dotenv`, install using `pip3 install python-dotenv`
+- `dotenv`, install using `pip3 install python-dotenv`.
+- `twilio`, install using `pip3 install twilio`.
 
 ## Server Setup <a name="server-setup"></a>
 
