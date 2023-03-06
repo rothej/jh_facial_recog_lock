@@ -1,1 +1,3 @@
 .env
+frlock_venv/
+frlock_venv\

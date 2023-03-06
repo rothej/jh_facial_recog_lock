@@ -21,15 +21,17 @@ This repository contains the necessary files and information to setup and deploy
 This repository is intended to be installed within a virtual environment. This is intended to be performed both on client and server hardware.
 
 - `git clone https://github.com/rothej/jh_facial_recog_lock.git` to clone the repository.
-- `cd jh_facial_recog_lock`
-- `pip3 install virtualenv` (if needed).
-- `virtualenv venv` to create a virtual environment.
-- `source venv/bin/activate` to enter this newly created environment.
+- `cd jh_facial_recog_lock`.
+- `sudo apt-get install -y python3-venv` (if needed).
+- `python3 -m venv frlock_venv` to create a virtual environment named frlock_venv.
+- `source frlock_venv/bin/activate` to enter this newly created environment (note: `frlock_venv\Scripts\activate` for Windows, no `source`).
 - `pip3 install -r requirements.txt` to install python dependencies.
 
 ## File Structure <a name="file-structure"></a>
 
 - `.ref/` contains images used in this README file.
+- `frserver.py` is the server python code.
+- `requirements.txt` contains environment dependencies to be installed upon venv creation.
 
 ## Dependencies <a name="dependencies"></a>
 
@@ -41,14 +43,15 @@ Set up a Twilio account by following [these instructions](https://www.twilio.com
 
 ### Python Libraries <a name="python-libraries"></a>
 
-The following libraries will be stored in `requirements.txt` using `pip3 freeze`, and installed during the Installation step. They are listed here for user reference.
+The following libraries will be stored in `requirements.txt` using `pip3 freeze > requirements.txt`, and installed during the Installation step. They are listed here for user reference.
 
 - `dotenv`, install using `pip3 install python-dotenv`.
 - `twilio`, install using `pip3 install twilio`.
+- `zmq`, install using `pip3 install pyzmq`.
 
 ## Server Setup <a name="server-setup"></a>
 
-The machine you may use as a server can vary, but this walkthrough is written for Ubuntu (and should hold for any other Debian-based system). Basic server/client setup suggestions are as follows:
+The machine you may use as a server can vary, but this walkthrough is written for Ubuntu (and should hold for any other Debian-based system). Basic setup suggestions are as follows, but if you know what you are doing feel free to deviate:
 
 - Modify `/etc/ssh/sshd_config` to allow PasswordAuthentication (uncomment PasswordAuthentication and set to yes).
 - Run `systemctl restart ssh` to restart the ssh service. 
