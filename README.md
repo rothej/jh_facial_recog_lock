@@ -4,13 +4,14 @@
 
 Facial Recognition Lock/Alert System for Embedded Systems Development Lab, Johns Hopkins University. 
 
-This repository contains the necessary files and descriptiosn to setup and deploy a scalable number of OpenCV Oak-1 AI facial recognition cameras that control door access locks, and log and alert the sysadmin to potential unauthorized entry attempts.
+This repository contains the necessary files and information to setup and deploy a scalable number of OpenCV Oak-1 AI facial recognition cameras that control door access locks, and log and alert the sysadmin to potential unauthorized entry attempts.
 
 ## Table of Contents
 
 - [File Structure](#file-structure)
 - [Dependencies](#depedencies)
     - [Twilio](#twilio)
+    - [Python Libraries](#python-libraries)
 - [Server Setup](#server-setup)
 - [License](#license)
 
@@ -24,7 +25,11 @@ This repository requires the following dependencies to function:
 
 ### Twilio <a name="twilio"></a>
 
-Set up a Twilio account by following [these instructions](https://www.twilio.com/docs/sms/quickstart/python). If using a free trial, be aware that it can only send texts to verified phone numbers (which will initially be the phone number you use to set up the account). The values for 
+Set up a Twilio account by following [these instructions](https://www.twilio.com/docs/sms/quickstart/python). If using a free trial, be aware that it can only send texts to verified phone numbers (which will initially be the phone number you use to set up the account). The values for your `.env` variables (`TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN`) will be provided and need to be added to `.env` manually.
+
+### Python Libraries <a name="python-libraries"></a>
+
+The following libraries will be stored in `requirements.txt`, but are listed here for user reference.
 
 - `dotenv`, install using `pip3 install python-dotenv`
 
