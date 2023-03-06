@@ -48,8 +48,11 @@ Set up a Twilio account by following [these instructions](https://www.twilio.com
 Example format for the .env file (place this in the top level directory):
 
 > `TWILIO_ACCOUNT_SID=1234567890`
+
 > `TWILIO_AUTH_TOKEN=1234567890`
+
 > `TWILIO_USR_PHONE_NUMBER=+18005555555`
+
 > `TWILIO_FROM_PHONE_NUMBER=+18005555555`
 
 Next you will need to install Twilio CLI (Server Only):
