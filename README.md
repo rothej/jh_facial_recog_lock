@@ -45,6 +45,13 @@ This repository requires the following dependencies to function:
 
 Set up a Twilio account by following [these instructions](https://www.twilio.com/docs/sms/quickstart/python). If using a free trial, be aware that it can only send texts to verified phone numbers (which will initially be the phone number you use to set up the account). The values for your `.env` variables (`TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN`) will be provided and need to be added to `.env` manually. You will also need to fill in `TWILIO_USR_PHONE_NUMBER` with the appropriate user phone number (in format `+18005555555`) and then do the same for `TWILIO_FROM_PHONE_NUMBER` (this will be the Twilio-created phone number you will receive alerts from).
 
+Example format for the .env file (place this in the top level directory):
+
+> `TWILIO_ACCOUNT_SID=1234567890`
+> `TWILIO_AUTH_TOKEN=1234567890`
+> `TWILIO_USR_PHONE_NUMBER=+18005555555`
+> `TWILIO_FROM_PHONE_NUMBER=+18005555555`
+
 Next you will need to install Twilio CLI (Server Only):
 
 > `wget -qO- https://twilio-cli-prod.s3.amazonaws.com/twilio_pub.asc | sudo apt-key add -`
