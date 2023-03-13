@@ -14,6 +14,9 @@ This repository contains the necessary files and information to setup and deploy
     - [Twilio](#twilio)
     - [Python Libraries](#python-libraries)
 - [Server Setup](#server-setup)
+- [Client Setup](#client-setup)
+    - [Raspberry Pi Zero W](#r-pi-zero-w)
+    - [OpenCV Oak-1 Camera Setup](#camera-setup)
 - [License](#license)
 
 ## Installation <a name="installation"></a>
@@ -82,6 +85,16 @@ The machine you may use as a server can vary, but this walkthrough is written fo
 - Run `systemctl restart ssh` to restart the ssh service. 
 - With passwords temporarily authorized, you can use `ssh-keygen` on any client machines (including the Raspberry Pi) and copy them to the server to allow for remote login. This can be done using `ssh-copy-id`, or paste the text manually into the `~/.ssh/authorized_keys` file.
 - It is recommended that once SSH keys are set up, PasswordAuthentication should be changed back to “no”. Setting up port forwarding on port 22 will allow the user to SSH in externally from outside the network (port forwarding is beyond the scope of this guide, but a search for the topic as well as the router being used for the network should suffice).
+
+## Client Setup <a name="client-setup"></a>
+
+### Raspberry Pi Zero W <a name="r-pi-zero-w"></a>
+
+Follow [this](https://cdn-learn.adafruit.com/downloads/pdf/raspberry-pi-zero-creation.pdf) guide to set up the Raspberry Pi OS (skip to the bottom of page 12, and don't forget to do UART enabling when complete). Use the standard Raspberry Pi OS (32-bit) during image write, and click the gear icon to configure initial settings.
+
+### OpenCV Oak-1 Camera Setup <a name="camera-setup"></a>
+
+Follow the install instructions [here](https://docs.luxonis.com/en/latest/pages/tutorials/first_steps/#first-steps-with-depthai) to set up the DepthAI program on the Raspberry Pi client.
 
 ## License <a name="license"></a>
 
