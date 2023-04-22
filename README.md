@@ -94,6 +94,8 @@ The Raspberry Pi client and hardware should be connected as follows:
 |                    | COM2       | +             |                | Red   |
 |                    |            | -             | -              | Black |
 
+Connect the Oak-CV1 camera to any USB slot on the board, and connect Power In on the Raspberry Pi to a wall outlet or other power source (this will obviously also apply to the server hardware).
+
 Colors are obviously optional, and provided as a reference along with the picture.
 
 ![Raspberry Pi Client Picture](.ref/rpi-pinouts.png)
