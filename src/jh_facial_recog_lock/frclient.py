@@ -6,12 +6,12 @@ import cv2
 import depthai as dai
 import numpy as np
 from MultiMsgSync import TwoStageHostSeqSync
-import RPi.GPIO as GPIO # custom
-from time import sleep  # custom
-import zmq              # custom
-import signal           # custom
-import datetime         # custom
-import sys              # custom
+import RPi.GPIO as GPIO         # custom
+from time import sleep          # custom
+import zmq                      # custom
+import signal                   # custom
+from datetime import datetime   # custom
+import sys                      # custom
 
 RELAY_PIN = 11                  # custom, will manipulate pin 11, GPIO17
 
@@ -31,6 +31,16 @@ pushSocket = context.socket(zmq.PUSH)       # custom
 pushSocket.bind("tcp://127.0.0.1:55002")    # custom - modify if add'l client
 pullSocket = context.socket(zmq.PULL)       # custom
 pullSocket.bind("tcp://127.0.0.1:55001")    # custom
+
+## Handle SIGINT for exiting program and unbinding sockets. # custom 
+def exitHandler(sig, frame):                                # custom
+    print("Unbinding ports and exiting . . .")              # custom
+    pushSocket.unbind("tcp://127.0.0.1:55001")              # custom
+    pullSocket.unbind("tcp://127.0.0.1:55002")              # custom
+    sys.exit(0)                                             # custom
+                                                            # custom
+signal.signal(signal.SIGINT, signal.default_int_handler)    # custom
+## End SIGINT handler.                                      # custom
 
 def frame_norm(frame, bbox):
     normVals = np.full(len(bbox), frame.shape[0])
@@ -70,6 +80,8 @@ class FaceRecognition:
         return np.dot(a, b.T) / (a_norm * b_norm)
 
     def new_recognition(self, results):
+        global unlock_counter   # custom
+        global alert_counter    # custom
         conf = []
         max_ = 0
         label_ = None
@@ -87,32 +99,25 @@ class FaceRecognition:
 
         if name[1] == "UNKNOWN":
             self.create_db(results)
-            unlock_counter = unlock_counter = 0                                                 # custom
-            alert_counter = alert_counter + 1                                                   # custom
-        else:                                                                                   # custom
-            unlock_counter == unlock_counter + 1                                                # custom
-            alert_counter = 0                                                                   # custom
-        if unlock_counter == 5:                                                                 # custom
-            GPIO.output(RELAY_PIN, 1)                                                           # custom
-        else:                                                                                   # custom
-            GPIO.output(RELAY_PIN, 0)                                                           # custom
-        if alert_counter == 5:                                                                  # custom
-            current_datetime = datetime.now()                                                   # custom
-            pushSocket.send_string("Unauthorized entry attempt detected at", current_datetime)  # custom
-            alert_counter = 0                                                                   # custom
+            unlock_counter = unlock_counter = 0                                                     # custom
+            alert_counter = alert_counter + 1                                                       # custom
+        else:                                                                                       # custom
+            unlock_counter == unlock_counter + 1                                                    # custom
+            alert_counter = 0                                                                       # custom
+        if unlock_counter == 5:                                                                     # custom
+            print("Unlocking . . .")    # debug, remove
+            GPIO.output(RELAY_PIN, 1)                                                               # custom
+        else:                                                                                       # custom
+            print("Locking . . .")    # debug, remove
+            GPIO.output(RELAY_PIN, 0)                                                               # custom
+        if alert_counter == 5:                                                                      # custom
+            self.current_datetime = str(datetime.now())                                             # custom
+            self.msg_string = 'Unauthorized entry attempt detected at %s' % (self.current_datetime) # custom
+            pushSocket.send_string(self.msg_string)                                                 # custom
+            alert_counter = 0                                                                       # custom
         print("Alert counter: ", alert_counter)    # debug, remove
         print("Unlock counter: ", alert_counter)   # debug, remove
         return name
-
-    ## Handle SIGINT for exiting program and unbinding sockets. # custom 
-    def exitHandler(sig, frame):                                # custom
-        print("Unbinding ports and exiting . . .")              # custom
-        pushSocket.unbind("tcp://127.0.0.1:55001")              # custom
-        pullSocket.unbind("tcp://127.0.0.1:55002")              # custom
-        sys.exit(0)                                             # custom
-                                                                # custom
-    signal.signal(signal.SIGINT, signal.default_int_handler)    # custom
-    ## End SIGINT handler.                                      # custom
 
     def read_db(self, databases_path):
         self.labels = []

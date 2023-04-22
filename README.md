@@ -15,7 +15,6 @@ This repository contains the necessary files and information to setup and deploy
     - [Python Libraries](#python-libraries)
 - [Client Hardware Setup](#hw-setup)
 - [Server and Client Software Setup](#server-setup)
-- [OpenCV Oak-1 Camera Setup](#camera-setup)
 - [First-Time Software Setup](#first-time)
 - [Software Run](#software-run)
 - [License](#license)
@@ -76,8 +75,13 @@ The following libraries will be stored in `requirements.txt` using `pip3 freeze 
 - `dotenv`, install using `pip3 install python-dotenv`.
 - `twilio`, install using `pip3 install twilio`.
 - `zmq`, install using `pip3 install pyzmq`.
+- `blobconverter`, install using `pip3 install blobconverter`.
+- `cv`, install using `pip3 install opencv-python`.
+- `depthai`, install using `sudo wget -qO- https://docs.luxonis.com/install_depthai.sh | bash` and also `pip3 install depthai`
+- `OpenLDAP`, install using `sudo apt-get -y install libsasl2-dev python3-dev libldap2-dev libssl-dev && pip3 install python-ldap`.
+- `MultiMsgSync`, install using `pip3 install multisync`.
 
-Note: for Windows testing, use `python3 -m pip install <package>`.
+Note: for Windows testing, use `python3 -m pip install <package>`. DepthAI will need to be installed using a [Windows Installer](https://docs.luxonis.com/en/latest/pages/tutorials/first_steps/#first-steps-with-depthai). You will also have to install this manually on ubuntu systems as well.
 
 ## Client Hardware Setup <a name="hw-setup"></a>
 
@@ -94,7 +98,7 @@ The Raspberry Pi client and hardware should be connected as follows:
 |                    | COM2       | +             |                | Red   |
 |                    |            | -             | -              | Black |
 
-Connect the Oak-CV1 camera to any USB slot on the board, and connect Power In on the Raspberry Pi to a wall outlet or other power source (this will obviously also apply to the server hardware).
+Connect the Oak-CV1 camera to any USB3 (blue) slot on the board, and connect Power In on the Raspberry Pi to a wall outlet or other power source (this will obviously also apply to the server hardware).
 
 Colors are obviously optional, and provided as a reference along with the picture.
 
@@ -111,10 +115,6 @@ Follow [this](https://ubuntu.com/tutorials/how-to-install-ubuntu-desktop-on-rasp
 
 Recommended steps for SSH-ing into the Raspberry Pi server or client is to use -X to enable GUI forwarding, and to SSH from a debian/linux environment. For Windows PC users, it is easy to set up an [Ubuntu WSL](https://learn.microsoft.com/en-us/windows/wsl/install) and SSH from there.
 
-### OpenCV Oak-1 Camera Setup <a name="camera-setup"></a>
-
-Follow the install instructions [here](https://docs.luxonis.com/en/latest/pages/tutorials/first_steps/#first-steps-with-depthai) to set up the DepthAI program on the Raspberry Pi client.
-
 ### First-Time Software Setup <a name="first-time"></a>
 
 Run the following to set yourself up as an authorized user, replacing JohnDoe with your name.
@@ -126,6 +126,8 @@ python3 frclient.py --name JohnDoe
 Repeat the above for any other authorized users you want to add.
 
 ### Software Run <a name="software-run"></a>
+
+Activate the environment using `cd ~/jh_facial_recognition_lock && source frlock_venv/bin/activate`
 
 On the server, run `python3 frserver.py`
 
