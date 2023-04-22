@@ -13,10 +13,11 @@ This repository contains the necessary files and information to setup and deploy
 - [Dependencies](#depedencies)
     - [Twilio](#twilio)
     - [Python Libraries](#python-libraries)
-- [Server Setup](#server-setup)
-- [Client Setup](#client-setup)
-    - [Raspberry Pi Zero W](#r-pi-zero-w)
-    - [OpenCV Oak-1 Camera Setup](#camera-setup)
+- [Client Hardware Setup](#hw-setup)
+- [Server and Client Software Setup](#server-setup)
+- [OpenCV Oak-1 Camera Setup](#camera-setup)
+- [First-Time Software Setup](#first-time)
+- [Software Run](#software-run)
 - [License](#license)
 
 ## Installation <a name="installation"></a>
@@ -37,6 +38,7 @@ This repository is intended to be installed within a virtual environment. This i
 - `examples\` contains examples of additional clients.
 - `src\` contains all source files for this project - server and client scripts.
     - `src\jh_facial_recog_lock\frserver.py` is the server python code.
+    - `src\jh_facial_recog_lock\frclient.py` is the client python code.
 - `requirements.txt` contains environment dependencies to be installed upon venv creation.
 - `tests\` contains test scripts to verify certain functionalities.
 
@@ -50,12 +52,12 @@ Set up a Twilio account by following [these instructions](https://www.twilio.com
 
 Example format for the .env file (place this in the top level directory):
 
-````
+```
 TWILIO_ACCOUNT_SID=1234567890
 TWILIO_AUTH_TOKEN=1234567890
 TWILIO_USR_PHONE_NUMBER=+18005555555
 TWILIO_FROM_PHONE_NUMBER=+18005555555
-````
+```
 
 Next you will need to install Twilio CLI (Server Only):
 
@@ -77,24 +79,55 @@ The following libraries will be stored in `requirements.txt` using `pip3 freeze 
 
 Note: for Windows testing, use `python3 -m pip install <package>`.
 
-## Server Setup <a name="server-setup"></a>
+## Client Hardware Setup <a name="hw-setup"></a>
 
-The machine you may use as a server can vary, but this walkthrough is written for Ubuntu (and should hold for any other Debian-based system). Basic setup suggestions are as follows, but if you know what you are doing feel free to deviate:
+The Raspberry Pi client and hardware should be connected as follows:
+
+![Raspberry Pi Client Picture](.ref/rpi-client.png)
+
+| Raspberry Pi Pins  | Relay Pins | DC Power Pins | Door Lock Pins | Color |
+| ------------------ | ---------- | ------------- | -------------- | ----- |
+| J8 Pin 2 (5VDC)    | DC+        |               |                | Red   |
+| J8 Pin 6 (Gnd)     | DC-        |               |                | Black |
+| J8 Pin 11 (GPIO17) | IN2        |               |                | Brown |
+|                    | NO2        |               | +              | Brown |
+|                    | COM2       | +             |                | Red   |
+|                    |            | -             | -              | Black |
+
+Colors are obviously optional, and provided as a reference along with the picture.
+
+![Raspberry Pi Client Picture](.ref/rpi-pinouts.png)
+
+## Server and Client Software Setup <a name="server-setup"></a>
+
+Follow [this](https://ubuntu.com/tutorials/how-to-install-ubuntu-desktop-on-raspberry-pi-4#1-overview) guide to set up Ubunhtu on the SD card for the raspberry pi. Once complete, do the following:
 
 - Modify `/etc/ssh/sshd_config` to allow PasswordAuthentication (uncomment PasswordAuthentication and set to yes).
 - Run `systemctl restart ssh` to restart the ssh service. 
 - With passwords temporarily authorized, you can use `ssh-keygen` on any client machines (including the Raspberry Pi) and copy them to the server to allow for remote login. This can be done using `ssh-copy-id`, or paste the text manually into the `~/.ssh/authorized_keys` file.
 - It is recommended that once SSH keys are set up, PasswordAuthentication should be changed back to “no”. Setting up port forwarding on port 22 will allow the user to SSH in externally from outside the network (port forwarding is beyond the scope of this guide, but a search for the topic as well as the router being used for the network should suffice).
 
-## Client Setup <a name="client-setup"></a>
-
-### Raspberry Pi Zero W <a name="r-pi-zero-w"></a>
-
-Follow [this](https://cdn-learn.adafruit.com/downloads/pdf/raspberry-pi-zero-creation.pdf) guide to set up the Raspberry Pi OS (skip to the bottom of page 12, and don't forget to do UART enabling when complete). Use the standard Raspberry Pi OS (32-bit) during image write, and click the gear icon to configure initial settings.
+Recommended steps for SSH-ing into the Raspberry Pi server or client is to use -X to enable GUI forwarding, and to SSH from a debian/linux environment. For Windows PC users, it is easy to set up an [Ubuntu WSL](https://learn.microsoft.com/en-us/windows/wsl/install) and SSH from there.
 
 ### OpenCV Oak-1 Camera Setup <a name="camera-setup"></a>
 
 Follow the install instructions [here](https://docs.luxonis.com/en/latest/pages/tutorials/first_steps/#first-steps-with-depthai) to set up the DepthAI program on the Raspberry Pi client.
+
+### First-Time Software Setup <a name="first-time"></a>
+
+Run the following to set yourself up as an authorized user, replacing JohnDoe with your name.
+
+```
+python3 frclient.py --name JohnDoe
+```
+
+Repeat the above for any other authorized users you want to add.
+
+### Software Run <a name="software-run"></a>
+
+On the server, run `python3 frserver.py`
+
+On the client, run `python3 frclient.py`
 
 ## License <a name="license"></a>
 
