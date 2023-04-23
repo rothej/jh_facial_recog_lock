@@ -112,7 +112,7 @@ class FaceRecognition:
             try:                                                                                        # custom
                 self.current_datetime = str(datetime.now())                                             # custom
                 self.msg_string = 'Unauthorized entry attempt detected at %s' % (self.current_datetime) # custom
-                pushSocket.send_string(self.msg_string)                                                 # custom
+                pushSocket.send_string(self.msg_string, zmq.NOBLOCK)                                     # custom
                 self.alert_counter = 0                                                                       # custom
             except:                                                                                     # custom
                 print("Alert message to server failed to send.")                                        # custom
