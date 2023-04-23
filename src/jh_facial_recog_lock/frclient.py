@@ -79,8 +79,6 @@ class FaceRecognition:
         return np.dot(a, b.T) / (a_norm * b_norm)
 
     def new_recognition(self, results):
-        unlock_counter  # custom
-        alert_counter   # custom
         conf = []
         max_ = 0
         label_ = None
