@@ -28,6 +28,7 @@ This repository is intended to be installed within a virtual environment. This i
 - `sudo apt-get install -y python3-venv` (if needed).
 - `python3 -m venv frlock_venv` to create a virtual environment named frlock_venv.
 - `source frlock_venv/bin/activate` to enter this newly created environment (note: `frlock_venv\Scripts\activate` for Windows, no `source`).
+- `sudo apt-get -y install libsasl2-dev python3-dev libldap2-dev libssl-dev build-essential python2.7-dev slapd ldap-utils tox lcov valgrind` to install library dependencies.
 - `pip3 install -r requirements.txt` to install python dependencies.
 
 ## File Structure <a name="file-structure"></a>
@@ -80,7 +81,7 @@ The following libraries will be stored in `requirements.txt` using `pip3 freeze 
 - `blobconverter`, install using `pip3 install blobconverter`.
 - `cv`, install using `pip3 install opencv-python`.
 - `depthai`, install using `sudo wget -qO- https://docs.luxonis.com/install_depthai.sh | bash` and also `pip3 install depthai`
-- `OpenLDAP`, install using `sudo apt-get -y install libsasl2-dev python3-dev libldap2-dev libssl-dev && pip3 install python-ldap`.
+- `OpenLDAP`, install using `pip3 install python-ldap`.
 - `MultiMsgSync`, install using `pip3 install multisync`.
 
 Note: for Windows testing, use `python3 -m pip install <package>`. DepthAI will need to be installed using a [Windows Installer](https://docs.luxonis.com/en/latest/pages/tutorials/first_steps/#first-steps-with-depthai). You will also have to install this manually on ubuntu systems as well.

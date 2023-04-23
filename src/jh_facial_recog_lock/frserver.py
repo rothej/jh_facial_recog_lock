@@ -68,5 +68,5 @@ client = Client(accountSid, authToken)
 
 ## Handles message reception
 while True:
-    work = pullSocket1.recv_string()
-    print(work)
+    work1 = pullSocket1.recv_string()   # Will need to add multiple threads for scaled clients
+    print(work1)
