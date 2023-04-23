@@ -17,6 +17,7 @@ RELAY_PIN = 11                  # custom, will manipulate pin 11, GPIO17
 
 GPIO.setmode(GPIO.BOARD)        # custom, sets Rpi pin numbering scheme to follow headers on J8
 GPIO.setup(RELAY_PIN, GPIO.OUT) # custom, sets GPIO pin to out
+GPIO.output(RELAY_PIN, 0)       # custom, start locked
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-name", "--name", type=str, help="Name of the person for database saving")
@@ -103,14 +104,13 @@ class FaceRecognition:
             self.unlock_counter = self.unlock_counter + 1                                                         # custom
             self.alert_counter = 0                                                                           # custom
             print("debug, if UNKNOWN false")    # debug, remove
-        if self.unlock_counter == 5:                                                                         # custom
+        if self.unlock_counter == 7:                                                                         # custom
             print("Unlocking . . .")    # debug, remove                                                 # custom
             GPIO.output(RELAY_PIN, 1)                                                                   # custom
             self.unlock_counter = 0
-        else:                                                                                           # custom
+        if self.alert_counter == 7:                                                                          # custom
             print("Locking . . .")    # debug, remove                                                   # custom
             GPIO.output(RELAY_PIN, 0)                                                                   # custom
-        if self.alert_counter == 5:                                                                          # custom
             try:                                                                                        # custom
                 #self.current_datetime = str(datetime.now())                                             # custom
                 #self.msg_string = 'Unauthorized entry attempt detected at %s' % (self.current_datetime) # custom
