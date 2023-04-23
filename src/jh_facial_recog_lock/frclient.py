@@ -112,9 +112,9 @@ class FaceRecognition:
             GPIO.output(RELAY_PIN, 0)                                                                   # custom
         if alert_counter == 5:                                                                          # custom
             try:                                                                                        # custom
-                self.current_datetime = str(datetime.now())                                             # custom
-                self.msg_string = 'Unauthorized entry attempt detected at %s' % (self.current_datetime) # custom
-                pushSocket.send_string(self.msg_string)                                                 # custom
+                #self.current_datetime = str(datetime.now())                                             # custom
+                #self.msg_string = 'Unauthorized entry attempt detected at %s' % (self.current_datetime) # custom
+                #pushSocket.send_string(self.msg_string)                                                 # custom
                 alert_counter = 0                                                                       # custom
             except:                                                                                     # custom
                 print("Alert message to server failed to send.")                                        # custom
@@ -265,6 +265,7 @@ with dai.Device(pipeline) as device:
         if msgs is not None:
             frame = msgs["color"].getCvFrame()
             dets = msgs["detection"].detections
+            print(dets)
 
             for i, detection in enumerate(dets):
                 bbox = frame_norm(frame, (detection.xmin, detection.ymin, detection.xmax, detection.ymax))
