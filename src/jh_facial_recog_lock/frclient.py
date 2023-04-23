@@ -18,9 +18,6 @@ RELAY_PIN = 11                  # custom, will manipulate pin 11, GPIO17
 GPIO.setmode(GPIO.BOARD)        # custom, sets Rpi pin numbering scheme to follow headers on J8
 GPIO.setup(RELAY_PIN, GPIO.OUT) # custom, sets GPIO pin to out
 
-unlock_counter = 0              # custom, initialize unlock counter
-alert_counter = 0               # custom, initialize alert counter
-
 parser = argparse.ArgumentParser()
 parser.add_argument("-name", "--name", type=str, help="Name of the person for database saving")
 
@@ -80,8 +77,8 @@ class FaceRecognition:
         return np.dot(a, b.T) / (a_norm * b_norm)
 
     def new_recognition(self, results):
-        global unlock_counter   # custom
-        global alert_counter    # custom
+        unlock_counter = 0  # custom
+        alert_counter = 0   # custom
         conf = []
         max_ = 0
         label_ = None
@@ -267,7 +264,7 @@ with dai.Device(pipeline) as device:
         if msgs is not None:
             frame = msgs["color"].getCvFrame()
             dets = msgs["detection"].detections
-            print(frame) # debug, remove
+            print(name) # debug, remove
 
             for i, detection in enumerate(dets):
                 bbox = frame_norm(frame, (detection.xmin, detection.ymin, detection.xmax, detection.ymax))
