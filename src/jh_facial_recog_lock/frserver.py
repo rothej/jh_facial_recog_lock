@@ -65,3 +65,8 @@ fromPhoneNumber = os.environ['TWILIO_FROM_PHONE_NUMBER']
 client = Client(accountSid, authToken)
 
 ## Sends a SMS message 
+
+## Handles message reception
+while True:
+    work = pullSocket1.recv_string()
+    print(work)
