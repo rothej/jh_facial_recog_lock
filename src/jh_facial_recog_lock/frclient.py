@@ -110,6 +110,7 @@ class FaceRecognition:
         if self.unlock_counter == 17:                                                                   # custom
             print("Access complete, locking.")                                                          # custom
             GPIO.output(RELAY_PIN, 0)                                                                   # custom
+            self.unlock_counter = 0                                                                     # custom
         if self.alert_counter == 7:                                                                     # custom
             print("Locking.")                                                                           # custom
             GPIO.output(RELAY_PIN, 0)                                                                   # custom
