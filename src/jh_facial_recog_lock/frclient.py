@@ -101,9 +101,11 @@ class FaceRecognition:
             self.create_db(results)
             unlock_counter = 0                                                                          # custom
             alert_counter = alert_counter + 1                                                           # custom
+            print("debug, if UNKNOWN true") # debug, remove
         else:                                                                                           # custom
             unlock_counter = unlock_counter + 1                                                         # custom
             alert_counter = 0                                                                           # custom
+            print("debug, if UNKNOWN false")    # debug, remove
         if unlock_counter == 5:                                                                         # custom
             print("Unlocking . . .")    # debug, remove                                                 # custom
             GPIO.output(RELAY_PIN, 1)                                                                   # custom
@@ -265,7 +267,7 @@ with dai.Device(pipeline) as device:
         if msgs is not None:
             frame = msgs["color"].getCvFrame()
             dets = msgs["detection"].detections
-            print(dets)
+            print(frame) # debug, remove
 
             for i, detection in enumerate(dets):
                 bbox = frame_norm(frame, (detection.xmin, detection.ymin, detection.xmax, detection.ymax))
