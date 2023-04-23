@@ -99,24 +99,29 @@ class FaceRecognition:
 
         if name[1] == "UNKNOWN":
             self.create_db(results)
-            unlock_counter = unlock_counter = 0                                                     # custom
-            alert_counter = alert_counter + 1                                                       # custom
-        else:                                                                                       # custom
-            unlock_counter == unlock_counter + 1                                                    # custom
-            alert_counter = 0                                                                       # custom
-        if unlock_counter == 5:                                                                     # custom
-            print("Unlocking . . .")    # debug, remove
-            GPIO.output(RELAY_PIN, 1)                                                               # custom
-        else:                                                                                       # custom
-            print("Locking . . .")    # debug, remove
-            GPIO.output(RELAY_PIN, 0)                                                               # custom
-        if alert_counter == 5:                                                                      # custom
-            self.current_datetime = str(datetime.now())                                             # custom
-            self.msg_string = 'Unauthorized entry attempt detected at %s' % (self.current_datetime) # custom
-            pushSocket.send_string(self.msg_string)                                                 # custom
-            alert_counter = 0                                                                       # custom
-        print("Alert counter: ", alert_counter)    # debug, remove
-        print("Unlock counter: ", alert_counter)   # debug, remove
+            unlock_counter = 0                                                                          # custom
+            alert_counter = alert_counter + 1                                                           # custom
+        else:                                                                                           # custom
+            unlock_counter = unlock_counter + 1                                                         # custom
+            alert_counter = 0                                                                           # custom
+        if unlock_counter == 5:                                                                         # custom
+            print("Unlocking . . .")    # debug, remove                                                 # custom
+            GPIO.output(RELAY_PIN, 1)                                                                   # custom
+        else:                                                                                           # custom
+            print("Locking . . .")    # debug, remove                                                   # custom
+            GPIO.output(RELAY_PIN, 0)                                                                   # custom
+        if alert_counter == 5:                                                                          # custom
+            try:                                                                                        # custom
+                self.current_datetime = str(datetime.now())                                             # custom
+                self.msg_string = 'Unauthorized entry attempt detected at %s' % (self.current_datetime) # custom
+                pushSocket.send_string(self.msg_string)                                                 # custom
+                alert_counter = 0                                                                       # custom
+            except:                                                                                     # custom
+                print("Alert message to server failed to send.")                                        # custom
+            else:                                                                                       # custom
+                print("Alert message to server sent successfully.")                                     # custom
+        print("Alert counter: ", alert_counter)    # debug, remove                                      # custom
+        print("Unlock counter: ", alert_counter)   # debug, remove                                      # custom
         return name
 
     def read_db(self, databases_path):
