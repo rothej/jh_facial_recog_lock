@@ -106,6 +106,7 @@ class FaceRecognition:
         if self.unlock_counter == 5:                                                                         # custom
             print("Unlocking . . .")    # debug, remove                                                 # custom
             GPIO.output(RELAY_PIN, 1)                                                                   # custom
+            self.unlock_counter = 0
         else:                                                                                           # custom
             print("Locking . . .")    # debug, remove                                                   # custom
             GPIO.output(RELAY_PIN, 0)                                                                   # custom
