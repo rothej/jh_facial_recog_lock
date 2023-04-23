@@ -97,23 +97,26 @@ class FaceRecognition:
 
         if name[1] == "UNKNOWN":
             self.create_db(results)
-            self.unlock_counter = 0                                                                          # custom
-            self.alert_counter = self.alert_counter + 1                                                           # custom
+            self.unlock_counter = 0                                                                     # custom
+            self.alert_counter = self.alert_counter + 1                                                 # custom
         else:                                                                                           # custom
-            self.unlock_counter = self.unlock_counter + 1                                                         # custom
-            self.alert_counter = 0                                                                           # custom
-        if self.unlock_counter == 7:                                                                         # custom
-            print("Unlocking . . .")                                                    # custom
+            self.unlock_counter = self.unlock_counter + 1                                               # custom
+            self.alert_counter = 0                                                                      # custom
+        if self.unlock_counter == 7:                                                                    # custom
+            print("Unlocking.")                                                                         # custom
             GPIO.output(RELAY_PIN, 1)                                                                   # custom
-            self.unlock_counter = 0
-        if self.alert_counter == 7:                                                                          # custom
-            print("Locking . . .")                                                       # custom
+            self.unlock_counter = 0                                                                     # custom
+            sleep(8)                                                                                    # custom
+            print("Access complete, locking.")                                                          # custom
+            GPIO.output(RELAY_PIN, 0)                                                                   # custom
+        if self.alert_counter == 7:                                                                     # custom
+            print("Locking.")                                                                           # custom
             GPIO.output(RELAY_PIN, 0)                                                                   # custom
             try:                                                                                        # custom
                 self.current_datetime = str(datetime.now())                                             # custom
                 self.msg_string = 'Unauthorized entry attempt detected at %s' % (self.current_datetime) # custom
-                pushSocket.send_string(self.msg_string, zmq.NOBLOCK)                                     # custom
-                self.alert_counter = 0                                                                       # custom
+                pushSocket.send_string(self.msg_string, zmq.NOBLOCK)                                    # custom
+                self.alert_counter = 0                                                                  # custom
             except:                                                                                     # custom
                 print("Alert message to server failed to send.")                                        # custom
             else:                                                                                       # custom
