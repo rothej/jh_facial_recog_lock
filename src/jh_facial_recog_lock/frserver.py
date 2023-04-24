@@ -57,7 +57,9 @@ signal.signal(signal.SIGINT, signal.default_int_handler)
 ## End SIGINT handler.
 
 # Twilio Setup
-## Imports .env variables (SID, authtoken) for Twilio.
+## Imports .env variables (SID, authtoken) for Twilio. These are stored locally in the top
+## level folder for the repository. It is added to .gitignore and thus must be set up
+## manually, view the README.md for more details.
 load_dotenv()   # imports .env variables
 accountSid = os.environ['TWILIO_ACCOUNT_SID']
 authToken = os.environ['TWILIO_AUTH_TOKEN']
@@ -77,4 +79,4 @@ while True:
                      to=userPhoneNumber
                  )
     with open("access_log.txt", "w") as text_file:
-        print(f"Client 1: {work1}", file=text_file)
+        print(f"Client 1: {work1}", file=text_file) # Will need to be Client 2, 3 etc. for scalable
