@@ -36,6 +36,7 @@ if CLIENT_COUNT > 2:
     pullSocket3 = context.socket(zmq.PULL)
     pullSocket3.bind("tcp://127.0.0.1:55006")
 ### Add more clients as needed, choosing sockets appropriately.
+print("Socket setup complete.")
 
 ## Handle SIGINT for exiting program and unbinding sockets.
 def exitHandler(sig, frame):
@@ -63,6 +64,7 @@ authToken = os.environ['TWILIO_AUTH_TOKEN']
 userPhoneNumber = os.environ['TWILIO_USR_PHONE_NUMBER']
 fromPhoneNumber = os.environ['TWILIO_FROM_PHONE_NUMBER']
 client = Client(accountSid, authToken)
+print("Twilio setup complete, running...")
 
 ## Handles message reception, SMS alerts and log creation
 while True:
