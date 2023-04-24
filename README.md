@@ -130,7 +130,7 @@ Repeat the above for any other authorized users you want to add.
 
 ### Software Run <a name="software-run"></a>
 
-Activate the environment using `cd ~/jh_facial_recognition_lock && source frlock_venv/bin/activate`
+Activate the environment using `cd ~/jh_facial_recog_lock && source frlock_venv/bin/activate`
 
 On the server, run `python3 frserver.py`
 

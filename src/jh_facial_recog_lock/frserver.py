@@ -64,9 +64,15 @@ userPhoneNumber = os.environ['TWILIO_USR_PHONE_NUMBER']
 fromPhoneNumber = os.environ['TWILIO_FROM_PHONE_NUMBER']
 client = Client(accountSid, authToken)
 
-## Sends a SMS message 
-
-## Handles message reception
+## Handles message reception, SMS alerts and log creation
 while True:
     work1 = pullSocket1.recv_string()   # Will need to add multiple threads for scaled clients
     print(work1)
+    message = client.messages \
+                .create(
+                     body=work1,
+                     from_=fromPhoneNumber,
+                     to=userPhoneNumber
+                 )
+    with open("access_log.txt", "w") as text_file:
+        print(f"Client 1: {work1}", file=text_file)
