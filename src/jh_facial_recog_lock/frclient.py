@@ -113,17 +113,22 @@ class FaceRecognition:
             sleep(5)                                                                                    # custom
         if self.alert_counter == 7:                                                                     # custom
             print("Locking.")                                                                           # custom
-            GPIO.output(RELAY_PIN, 0)                                                                   # custom
-            try:                                                                                        # custom
-                self.current_datetime = str(datetime.now())                                             # custom
-                self.msg_string = 'Unauthorized entry attempt detected at %s' % (self.current_datetime) # custom
-                print(msg_string)                                                                       # custom
-                pushSocket.send_string(self.msg_string, zmq.NOBLOCK)                                    # custom
-                self.alert_counter = 0                                                                  # custom
-            except:                                                                                     # custom
-                print("Alert message to server failed to send.")                                        # custom
-            else:                                                                                       # custom
-                print("Alert message to server sent successfully.")                                     # custom
+            GPIO.output(RELAY_PIN, 0)  
+            self.alert_counter = 0                                                                 # custom
+            #try:                                                                                        # custom
+            print("debug1")
+            self.current_datetime = str(datetime.now())     
+            print("debug2")                                        # custom
+            self.msg_string = 'Unauthorized entry attempt detected at %s' % (self.current_datetime) 
+            print("debug3")# custom
+            print(msg_string)                                                                       # custom
+            print("debug4")
+            pushSocket.send_string(self.msg_string, zmq.NOBLOCK)                                    # custom
+                                                                              # custom
+            #except:                                                                                     # custom
+               # print("Alert message to server failed to send.")                                        # custom
+           # else:                                                                                       # custom
+               # print("Alert message to server sent successfully.")                                     # custom
         return name
 
     def read_db(self, databases_path):
