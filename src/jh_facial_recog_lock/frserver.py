@@ -62,9 +62,13 @@ signal.signal(signal.SIGINT, signal.default_int_handler)
 ## manually, view the README.md for more details.
 load_dotenv()   # imports .env variables
 accountSid = os.environ['TWILIO_ACCOUNT_SID']
+print(accountSid)
 authToken = os.environ['TWILIO_AUTH_TOKEN']
+print(authToken)
 userPhoneNumber = os.environ['TWILIO_USR_PHONE_NUMBER']
+print(userPhoneNumber)
 fromPhoneNumber = os.environ['TWILIO_FROM_PHONE_NUMBER']
+print(fromPhoneNumber)
 client = Client(accountSid, authToken)
 print("Twilio setup complete, running...")
 
@@ -80,4 +84,4 @@ while True:
                  )
     print(message.sid)  # prints return msg to server terminal
     with open("access_log.txt", "w") as text_file:
-        print(f"Client 1: {work1}", file=text_file) # Will need to be Client 2, 3 etc. for scalable, polling sockets
+        print(f"Client 1: {work1}\n", file=text_file) # Will need to be Client 2, 3 etc. for scalable, polling sockets
