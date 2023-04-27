@@ -121,7 +121,7 @@ class FaceRecognition:
             print("debug2")                                        # custom
             self.msg_string = 'Unauthorized entry attempt detected at %s' % (self.current_datetime) 
             print("debug3")# custom
-            print(msg_string)                                                                       # custom
+            print(self.msg_string)                                                                       # custom
             print("debug4")
             pushSocket.send_string(self.msg_string, zmq.NOBLOCK)                                    # custom
                                                                               # custom
