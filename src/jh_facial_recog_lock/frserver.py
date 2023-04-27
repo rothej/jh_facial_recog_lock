@@ -41,15 +41,15 @@ print("Socket setup complete.")
 ## Handle SIGINT for exiting program and unbinding sockets.
 def exitHandler(sig, frame):
     print("Unbinding ports and exiting . . .")
-    pushSocket1.unbind("tcp://127.0.0.1:55001")
-    pullSocket1.unbind("tcp://127.0.0.1:55002")
+    pushSocket1.unbind("tcp://*:55001") # can set IP to something specific if needed
+    pullSocket1.unbind("tcp://*:55002")
     ### Scalable clients, add more if needed.
     if CLIENT_COUNT > 1:
-        pushSocket2.unbind("tcp://127.0.0.1:55003")
-        pullSocket2.unbind("tcp://127.0.0.1:55004")
+        pushSocket2.unbind("tcp://*:55003")
+        pullSocket2.unbind("tcp://*:55004")
     if CLIENT_COUNT > 1:
-        pushSocket3.unbind("tcp://127.0.0.1:55005")
-        pullSocket3.unbind("tcp://127.0.0.1:55006")
+        pushSocket3.unbind("tcp://*:55005")
+        pullSocket3.unbind("tcp://*:55006")
     ### End scalable.
     sys.exit(0)
 
@@ -78,5 +78,6 @@ while True:
                      from_=fromPhoneNumber,
                      to=userPhoneNumber
                  )
+    print(message.sid)  # prints return msg to server terminal
     with open("access_log.txt", "w") as text_file:
-        print(f"Client 1: {work1}", file=text_file) # Will need to be Client 2, 3 etc. for scalable
+        print(f"Client 1: {work1}", file=text_file) # Will need to be Client 2, 3 etc. for scalable, polling sockets
