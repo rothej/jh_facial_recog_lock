@@ -26,9 +26,9 @@ args = parser.parse_args()
 
 context = zmq.Context()                     # custom
 pushSocket = context.socket(zmq.PUSH)       # custom
-pushSocket.bind("tcp://*:55002") # custom - modify if this is an add'l client
+pushSocket.bind("tcp://*:55002") # custom
 pullSocket = context.socket(zmq.PULL)       # custom
-pullSocket.bind("tcp://*:55001")            # custom
+pullSocket.connect("tcp://192.168.1.139:55001")            # custom
 
 ## Handle SIGINT for exiting program and unbinding sockets. # custom 
 def exitHandler(sig, frame):                                # custom

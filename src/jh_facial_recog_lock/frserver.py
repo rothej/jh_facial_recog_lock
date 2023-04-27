@@ -23,18 +23,18 @@ context = zmq.Context()
 pushSocket1 = context.socket(zmq.PUSH)
 pushSocket1.bind("tcp://*:55001")
 pullSocket1 = context.socket(zmq.PULL)
-pullSocket1.bind("tcp://*:55002")
+pullSocket1.connect("tcp://192.168.1.6:55002")
 ### Additional Clients
 if CLIENT_COUNT > 1:
     pushSocket2 = context.socket(zmq.PUSH)
     pushSocket2.bind("tcp://*:55003")
     pullSocket2 = context.socket(zmq.PULL)
-    pullSocket2.bind("tcp://*:55004")
+    pullSocket2.connect("tcp://*:55004")
 if CLIENT_COUNT > 2:
     pushSocket3 = context.socket(zmq.PUSH)
     pushSocket3.bind("tcp://*:55005")
     pullSocket3 = context.socket(zmq.PULL)
-    pullSocket3.bind("tcp://*:55006")
+    pullSocket3.connect("tcp://*:55006")
 ### Add more clients as needed, choosing sockets appropriately.
 print("Socket setup complete.")
 
