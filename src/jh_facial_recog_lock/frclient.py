@@ -28,13 +28,13 @@ context = zmq.Context()                     # custom
 pushSocket = context.socket(zmq.PUSH)       # custom
 pushSocket.bind("tcp://*:55002") # custom - modify if this is an add'l client
 pullSocket = context.socket(zmq.PULL)       # custom
-pullSocket.bind("tcp://192.168.1.139:55001")            # custom
+pullSocket.bind("tcp://*:55001")            # custom
 
 ## Handle SIGINT for exiting program and unbinding sockets. # custom 
 def exitHandler(sig, frame):                                # custom
     print("Unbinding ports and exiting . . .")              # custom
     pushSocket.unbind("tcp://*:55001")          # custom, change pased on target IP
-    pullSocket.unbind("tcp://192.168.1.139:55002")                      # custom
+    pullSocket.unbind("tcp://*:55002")                      # custom
     sys.exit(0)                                             # custom
                                                             # custom
 signal.signal(signal.SIGINT, signal.default_int_handler)    # custom
