@@ -24,16 +24,16 @@ parser.add_argument("-name", "--name", type=str, help="Name of the person for da
 
 args = parser.parse_args()
 
-context = zmq.Context()                     # custom
-pushSocket = context.socket(zmq.PUSH)       # custom
-pushSocket.bind("tcp://*:55002") # custom
-pullSocket = context.socket(zmq.PULL)       # custom
-pullSocket.connect("tcp://192.168.1.139:55001")            # custom
+context = zmq.Context()                                     # custom
+pushSocket = context.socket(zmq.PUSH)                       # custom
+pushSocket.bind("tcp://*:55002")                            # custom
+pullSocket = context.socket(zmq.PULL)                       # custom
+pullSocket.connect("tcp://192.168.1.139:55001")             # custom, change to server IP
 
 ## Handle SIGINT for exiting program and unbinding sockets. # custom 
 def exitHandler(sig, frame):                                # custom
     print("Unbinding ports and exiting . . .")              # custom
-    pushSocket.unbind("tcp://*:55001")          # custom, change pased on target IP
+    pushSocket.unbind("tcp://*:55001")                      # custom
     pullSocket.unbind("tcp://*:55002")                      # custom
     sys.exit(0)                                             # custom
                                                             # custom
@@ -113,22 +113,17 @@ class FaceRecognition:
             sleep(5)                                                                                    # custom
         if self.alert_counter == 7:                                                                     # custom
             print("Locking.")                                                                           # custom
-            GPIO.output(RELAY_PIN, 0)  
-            self.alert_counter = 0                                                                 # custom
-            #try:                                                                                        # custom
-            print("debug1")
-            self.current_datetime = str(datetime.now())     
-            print("debug2")                                        # custom
-            self.msg_string = 'Unauthorized entry attempt detected at %s' % (self.current_datetime) 
-            print("debug3")# custom
-            print(self.msg_string)                                                                       # custom
-            print("debug4")
-            pushSocket.send_string(self.msg_string, zmq.NOBLOCK)                                    # custom
-                                                                              # custom
-            #except:                                                                                     # custom
-               # print("Alert message to server failed to send.")                                        # custom
-           # else:                                                                                       # custom
-               # print("Alert message to server sent successfully.")                                     # custom
+            GPIO.output(RELAY_PIN, 0)                                                                   # custom
+            self.alert_counter = 0                                                                      # custom
+            try:                                                                                        # custom
+                self.current_datetime = str(datetime.now())                                             # custom
+                self.msg_string = 'Unauthorized entry attempt detected at %s' % (self.current_datetime) # custom
+                print(self.msg_string)                                                                  # custom
+                pushSocket.send_string(self.msg_string, zmq.NOBLOCK)                                    # custom
+            except:                                                                                     # custom
+                print("Alert message to server failed to send.")                                        # custom
+            else:                                                                                       # custom
+                print("Alert message to server sent successfully.")                                     # custom
         return name
 
     def read_db(self, databases_path):

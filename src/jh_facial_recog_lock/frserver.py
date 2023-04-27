@@ -23,7 +23,7 @@ context = zmq.Context()
 pushSocket1 = context.socket(zmq.PUSH)
 pushSocket1.bind("tcp://*:55001")
 pullSocket1 = context.socket(zmq.PULL)
-pullSocket1.connect("tcp://192.168.1.6:55002")
+pullSocket1.connect("tcp://192.168.1.6:55002")  # change to clients IP
 ### Additional Clients
 if CLIENT_COUNT > 1:
     pushSocket2 = context.socket(zmq.PUSH)
@@ -41,7 +41,7 @@ print("Socket setup complete.")
 ## Handle SIGINT for exiting program and unbinding sockets.
 def exitHandler(sig, frame):
     print("Unbinding ports and exiting . . .")
-    pushSocket1.unbind("tcp://*:55001") # change this depending on IP of target
+    pushSocket1.unbind("tcp://*:55001")
     pullSocket1.unbind("tcp://*:55002")
     ### Scalable clients, add more if needed.
     if CLIENT_COUNT > 1:
@@ -62,13 +62,9 @@ signal.signal(signal.SIGINT, signal.default_int_handler)
 ## manually, view the README.md for more details.
 load_dotenv()   # imports .env variables
 accountSid = os.environ['TWILIO_ACCOUNT_SID']
-print(accountSid)
 authToken = os.environ['TWILIO_AUTH_TOKEN']
-print(authToken)
 userPhoneNumber = os.environ['TWILIO_USR_PHONE_NUMBER']
-print(userPhoneNumber)
 fromPhoneNumber = os.environ['TWILIO_FROM_PHONE_NUMBER']
-print(fromPhoneNumber)
 client = Client(accountSid, authToken)
 print("Twilio setup complete, running...")
 

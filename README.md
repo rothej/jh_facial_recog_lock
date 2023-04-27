@@ -48,7 +48,9 @@ This repository requires the following dependencies to function:
 
 ### Twilio <a name="twilio"></a>
 
-Set up a Twilio account by following [these instructions](https://www.twilio.com/docs/sms/quickstart/python). If using a free trial, be aware that it can only send texts to verified phone numbers (which will initially be the phone number you use to set up the account). The values for your `.env` variables (`TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN`) will be provided and need to be added to `.env` manually. You will also need to fill in `TWILIO_USR_PHONE_NUMBER` with the appropriate user phone number (in format `+18005555555`) and then do the same for `TWILIO_FROM_PHONE_NUMBER` (this will be the Twilio-created phone number you will receive alerts from).
+Set up a Twilio account by following [these instructions](https://www.twilio.com/docs/sms/quickstart/python). If using a free trial, be aware that it can only send texts to verified phone numbers (which will initially be the phone number you use to set up the account). The values for your `.env` variables (`TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN`) will be provided and need to be added to `.env` manually. You will also need to fill in `TWILIO_USR_PHONE_NUMBER` with the appropriate user phone number (in format `+18005555555`) and then do the same for `TWILIO_FROM_PHONE_NUMBER` (this will be the Twilio-created phone number you will receive alerts from). 
+
+Note: Service now needs to be paid to send texts in the US.
 
 Example format for the .env file (place this in the top level directory):
 
