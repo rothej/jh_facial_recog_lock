@@ -83,5 +83,5 @@ while True:
                      to=userPhoneNumber
                  )
     print(message.sid)  # prints return msg to server terminal
-    with open("access_log.txt", "w") as text_file:
-        print(f"Client 1: {work1}\n", file=text_file) # Will need to be Client 2, 3 etc. for scalable, polling sockets
+    with open("access_log.txt", "a", encoding = "utf-8") as text_file:  # opening in append mode
+        text_file.write("Client 1: {work1}\n", file=text_file) # Will need to be Client 2, 3 etc. for scalable, polling sockets
