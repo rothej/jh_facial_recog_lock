@@ -21,27 +21,27 @@ CLIENT_COUNT = 1
 ## Additional clients require their own sockets.
 context = zmq.Context()
 pushSocket1 = context.socket(zmq.PUSH)
-pushSocket1.bind("tcp://127.0.0.1:55001")
+pushSocket1.bind("tcp://192.168.1.6:55001")
 pullSocket1 = context.socket(zmq.PULL)
 pullSocket1.bind("tcp://127.0.0.1:55002")
 ### Additional Clients
 if CLIENT_COUNT > 1:
     pushSocket2 = context.socket(zmq.PUSH)
-    pushSocket2.bind("tcp://127.0.0.1:55003")
+    pushSocket2.bind("tcp://*:55003")
     pullSocket2 = context.socket(zmq.PULL)
-    pullSocket2.bind("tcp://127.0.0.1:55004")
+    pullSocket2.bind("tcp://*:55004")
 if CLIENT_COUNT > 2:
     pushSocket3 = context.socket(zmq.PUSH)
-    pushSocket3.bind("tcp://127.0.0.1:55005")
+    pushSocket3.bind("tcp://*:55005")
     pullSocket3 = context.socket(zmq.PULL)
-    pullSocket3.bind("tcp://127.0.0.1:55006")
+    pullSocket3.bind("tcp://*:55006")
 ### Add more clients as needed, choosing sockets appropriately.
 print("Socket setup complete.")
 
 ## Handle SIGINT for exiting program and unbinding sockets.
 def exitHandler(sig, frame):
     print("Unbinding ports and exiting . . .")
-    pushSocket1.unbind("tcp://*:55001") # can set IP to something specific if needed
+    pushSocket1.unbind("tcp://192.168.1.6:55001") # change this depending on IP of target
     pullSocket1.unbind("tcp://*:55002")
     ### Scalable clients, add more if needed.
     if CLIENT_COUNT > 1:
