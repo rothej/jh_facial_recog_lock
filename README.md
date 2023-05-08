@@ -13,6 +13,7 @@ This repository contains the necessary files and information to setup and deploy
 - [Dependencies](#depedencies)
     - [Twilio](#twilio)
     - [Python Libraries](#python-libraries)
+- [Bill of Materials] (#bom)
 - [Client Hardware Setup](#hw-setup)
 - [Server and Client Software Setup](#server-setup)
 - [First-Time Software Setup](#first-time)
@@ -88,6 +89,24 @@ The following libraries will be stored in `requirements.txt` using `pip3 freeze 
 
 Note: for Windows testing, use `python3 -m pip install <package>`. DepthAI will need to be installed using a [Windows Installer](https://docs.luxonis.com/en/latest/pages/tutorials/first_steps/#first-steps-with-depthai). You will also have to install this manually on ubuntu systems as well.
 
+## Bill of Materials <a name="bom"></a>
+
+The following lists the hardware used for this project. Feel free to deviate from this list, but you may need to adjust the wiring diagram as necessary. Please note that server and client hardware needs to have at least 4 GB memory to run Ubuntu and not a Raspbian OS, which this software had trouble running on. Additionally, the performance of this system relies on a decent client to handle the image recognition script.
+
+| Item                  | Qty | Source | Cost (ea.) |
+| --------------------- | --- | ------ | --------- |
+| OpenCW Ai Kit - Oak-1 | 1   | [OpenAI](https://store.opencv.ai/products/oak-1) | $149       |
+| 5v 1-ch Relay Module  | 1   | [Amazon](https://www.amazon.com/dp/B00LW15A4W?psc=1&ref=ppx_yo2ov_dt_b_product_details) | $7.39      |
+| Jumper Wires          | 1   | [Amazon](https://www.amazon.com/dp/B07GD2BWPY?psc=1&ref=ppx_yo2ov_dt_b_product_details) | $6.99      |
+| Solenoid Lock         | 1   | [Amazon](https://www.amazon.com/dp/B0125VGLT0?psc=1&ref=ppx_yo2ov_dt_b_product_details) | $8.49      |
+| DC 12V A Power Supply | 1   | [Amazon](https://www.amazon.com/dp/B07VQHYGRD?psc=1&ref=ppx_yo2ov_dt_b_product_details) | $6.99      |
+| Raspberry Pi 4B Wifi  | 2   | [Amazon](https://www.amazon.com/dp/B07TC2BK1X?psc=1&ref=ppx_yo2ov_dt_b_product_details) | $147.50 ea |
+| USB-C Charger 2 pcs   | 1   | [Amazon](https://www.amazon.com/dp/B0BQ1GFQVJ?psc=1&ref=ppx_yo2ov_dt_b_product_details) | $14.99     |
+
+Due to supply chain issues with Raspberry Pi hardware, these prices are inflated versus their typical pricing, but are listed here as-purchased.
+
+Total cost of this project was $361.35, with $20 being required for the Twilio account (due to U.S. regulations, the free trial of Twilio was not allowed to send texts, so a paid account was necessary to enable text functionality).
+
 ## Client Hardware Setup <a name="hw-setup"></a>
 
 The Raspberry Pi client and hardware should be connected as follows:
@@ -98,10 +117,10 @@ The Raspberry Pi client and hardware should be connected as follows:
 | ------------------ | ---------- | ------------- | -------------- | ----- |
 | J8 Pin 2 (5VDC)    | DC+        |               |                | Red   |
 | J8 Pin 6 (Gnd)     | DC-        |               |                | Black |
-| J8 Pin 11 (GPIO17) | IN2        |               |                | Brown |
-|                    | NO2        |               | +              | Brown |
-|                    | COM2       | +             |                | Red   |
-|                    |            | -             | -              | Black |
+| J8 Pin 11 (GPIO17) | IN         |               |                | Brown |
+|                    | NO         | -             | +              | Black |
+|                    |            | +             | +              | Red   |
+|                    | COM        |               | -              | Brown |
 
 Connect the Oak-CV1 camera to any USB3 (blue) slot on the board, and connect Power In on the Raspberry Pi to a wall outlet or other power source (this will obviously also apply to the server hardware).
 
