@@ -99,7 +99,7 @@ The following lists the hardware used for this project. Feel free to deviate fro
 | 5v 1-ch Relay Module  | 1   | [Amazon](https://www.amazon.com/dp/B00LW15A4W?psc=1&ref=ppx_yo2ov_dt_b_product_details) | $7.39      |
 | Jumper Wires          | 1   | [Amazon](https://www.amazon.com/dp/B07GD2BWPY?psc=1&ref=ppx_yo2ov_dt_b_product_details) | $6.99      |
 | Solenoid Lock         | 1   | [Amazon](https://www.amazon.com/dp/B0125VGLT0?psc=1&ref=ppx_yo2ov_dt_b_product_details) | $8.49      |
-| DC 12V A Power Supply | 1   | [Amazon](https://www.amazon.com/dp/B07VQHYGRD?psc=1&ref=ppx_yo2ov_dt_b_product_details) | $6.99      |
+| DC 12V 1A PSUP        | 1   | [Amazon](https://www.amazon.com/dp/B07VQHYGRD?psc=1&ref=ppx_yo2ov_dt_b_product_details) | $6.99      |
 | Raspberry Pi 4B Wifi  | 2   | [Amazon](https://www.amazon.com/dp/B07TC2BK1X?psc=1&ref=ppx_yo2ov_dt_b_product_details) | $147.50 ea |
 | USB-C Charger 2 pcs   | 1   | [Amazon](https://www.amazon.com/dp/B0BQ1GFQVJ?psc=1&ref=ppx_yo2ov_dt_b_product_details) | $14.99     |
 
