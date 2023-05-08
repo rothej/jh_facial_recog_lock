@@ -71,6 +71,7 @@ class FaceRecognition:
         self.printed = True
         self.unlock_counter = 0 # custom
         self.alert_counter = 0  # custom
+        self.wait_counter = 0   # custom
 
     def cosine_distance(self, a, b):
         if a.shape != b.shape:
@@ -94,21 +95,27 @@ class FaceRecognition:
         name = conf[0] if conf[0][0] >= 0.5 else (1 - conf[0][0], "UNKNOWN")
         # self.putText(frame, f"name:{name[1]}", (coords[0], coords[1] - 35))
         # self.putText(frame, f"conf:{name[0] * 100:.2f}%", (coords[0], coords[1] - 10))
-
+        if self.wait_counter > 0:                                                                       # custom
+            self.wait_counter = self.wait_counter - 1                                                   # custom
+        else:
+            if self.wait_flag == 1:
+                self.wait_flag = 0
+                print("Access complete, locking.")                                                      # custom
+                GPIO.output(RELAY_PIN, 0)                                                               # custom
+                self.unlock_counter = 0                                                                 # custom
         if name[1] == "UNKNOWN":
             self.create_db(results)
             self.unlock_counter = 0                                                                     # custom
             self.alert_counter = self.alert_counter + 1                                                 # custom
         else:                                                                                           # custom
-            self.unlock_counter = self.unlock_counter + 1                                               # custom
-            self.alert_counter = 0                                                                      # custom
+            if self.wait_flag == 0:
+                self.unlock_counter = self.unlock_counter + 1                                           # custom
+                self.alert_counter = 0                                                                  # custom
         if self.unlock_counter == 10:                                                                   # custom
             print("Unlocking.")                                                                         # custom
             GPIO.output(RELAY_PIN, 1)                                                                   # custom
-            sleep(2)                                                                                    # custom
-            print("Access complete, locking.")                                                          # custom
-            GPIO.output(RELAY_PIN, 0)                                                                   # custom
-            self.unlock_counter = 0                                                                     # custom
+            self.wait_counter = 10                                                                      # custom
+            self.wait_flag = 1
         if self.alert_counter == 20:                                                                    # custom
             print("Locking.")                                                                           # custom
             GPIO.output(RELAY_PIN, 0)                                                                   # custom
