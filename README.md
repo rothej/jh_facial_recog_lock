@@ -53,7 +53,7 @@ Set up a Twilio account by following [these instructions](https://www.twilio.com
 
 Note: Service now needs to be paid to send texts in the US.
 
-Example format for the .env file (place this in the top level directory):
+Example format for the .env file (place this in the top-level directory):
 
 ```
 TWILIO_ACCOUNT_SID=1234567890
@@ -109,7 +109,7 @@ Total cost of this project was $361.35, with $20 being required for the Twilio a
 
 ## Client Hardware Setup <a name="hw-setup"></a>
 
-The Raspberry Pi client and hardware should be connected as follows:
+The Raspberry Pi client-side hardware should be connected as follows:
 
 ![Raspberry Pi Client Picture](.ref/rpi-client.png)
 
@@ -130,7 +130,7 @@ Colors are obviously optional, and provided as a reference along with the pictur
 
 ## Server and Client Software Setup <a name="server-setup"></a>
 
-Follow [this](https://ubuntu.com/tutorials/how-to-install-ubuntu-desktop-on-raspberry-pi-4#1-overview) guide to set up Ubunhtu on the SD card for the raspberry pi. Once complete, do the following:
+Follow [this](https://ubuntu.com/tutorials/how-to-install-ubuntu-desktop-on-raspberry-pi-4#1-overview) guide to set up Ubuntu on the SD card for the raspberry pi. Once complete, do the following:
 
 - Modify `/etc/ssh/sshd_config` to allow PasswordAuthentication (uncomment PasswordAuthentication and set to yes).
 - Run `systemctl restart ssh` to restart the ssh service. 
@@ -147,7 +147,7 @@ Run the following to set yourself up as an authorized user, replacing JohnDoe wi
 python3 frclient.py --name JohnDoe
 ```
 
-Repeat the above for any other authorized users you want to add.
+Repeat the above for any other authorized users you want to add. After running for 10 seconds or so, you will need to use Cntrl+C to kill the process – don’t worry, the image data will save properly. A longer run will add more images to the database, improving accuracy but potentially slowing down the python script.
 
 ### Software Run <a name="software-run"></a>
 
