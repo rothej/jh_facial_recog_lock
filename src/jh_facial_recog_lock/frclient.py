@@ -72,6 +72,7 @@ class FaceRecognition:
         self.unlock_counter = 0 # custom
         self.alert_counter = 0  # custom
         self.wait_counter = 0   # custom
+        self.wait_flag = 0      # custom
 
     def cosine_distance(self, a, b):
         if a.shape != b.shape:
