@@ -105,11 +105,10 @@ class FaceRecognition:
         if self.unlock_counter == 10:                                                                   # custom
             print("Unlocking.")                                                                         # custom
             GPIO.output(RELAY_PIN, 1)                                                                   # custom
-            sleep(5)                                                                                    # custom
+            sleep(2)                                                                                    # custom
             print("Access complete, locking.")                                                          # custom
             GPIO.output(RELAY_PIN, 0)                                                                   # custom
             self.unlock_counter = 0                                                                     # custom
-            sleep(5)                                                                                    # custom
         if self.alert_counter == 20:                                                                    # custom
             print("Locking.")                                                                           # custom
             GPIO.output(RELAY_PIN, 0)                                                                   # custom
